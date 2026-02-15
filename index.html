@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | EC × 環境 × プロジェクトマネジメント</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #1a1a2e;
+  --paper: #faf8f5;
+  --accent: #c45c3c;
+  --accent-light: #e8a87c;
+  --teal: #2d6a6a;
+  --teal-light: #4a9e9e;
+  --gold: #b8860b;
+  --gold-light: #daa520;
+  --mist: #e8e4df;
+  --slate: #5a5a6e;
+  --serif: 'Noto Serif JP', 'Georgia', serif;
+  --sans: 'Zen Kaku Gothic New', sans-serif;
+  --display: 'Cormorant Garamond', serif;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ===== NOISE TEXTURE ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(160deg, #1a1a2e 0%, #2d3a5e 40%, #3d5a5a 70%, #2d6a6a 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(196,92,60,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 30%, rgba(45,106,106,0.2) 0%, transparent 50%);
+  animation: drift 20s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-5%, 3%) rotate(2deg); }
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+.hero-label {
+  font-family: var(--display);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: var(--accent-light);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.6s forwards;
+}
+.hero-title span {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent-light), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-family: var(--sans);
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  color: rgba(255,255,255,0.7);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 600;
+  color: var(--accent-light);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.15em;
+  margin-top: 0.3rem;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: fadeUp 1s 1.8s forwards;
+}
+.scroll-hint::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent-light), transparent);
+  margin: 0 auto;
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  background: rgba(26,26,46,0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transform: translateY(-100%);
+  transition: transform 0.4s ease;
+}
+nav.visible { transform: translateY(0); }
+nav a {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  transition: color 0.3s;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid transparent;
+}
+nav a:hover { color: var(--accent-light); border-bottom-color: var(--accent-light); }
+
+/* ===== SECTIONS ===== */
+section { padding: 6rem 2rem; }
+.container { max-width: 960px; margin: 0 auto; }
+
+.section-label {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  color: var(--ink);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--accent), var(--teal));
+  margin-top: 0.8rem;
+  border-radius: 2px;
+}
+
+/* ===== CAREER HIGHLIGHTS ===== */
+.career-section { background: var(--paper); }
+
+.timeline {
+  position: relative;
+  margin-top: 3rem;
+  padding-left: 3rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--teal), var(--gold));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -3rem;
+  top: 0.4rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--paper);
+  box-shadow: 0 0 0 2px var(--accent);
+  transform: translateX(-5px);
+}
+.timeline-item:nth-child(2)::before { background: var(--teal); box-shadow: 0 0 0 2px var(--teal); }
+.timeline-item:nth-child(3)::before { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+.timeline-period {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  color: var(--slate);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.timeline-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.timeline-desc {
+  font-size: 0.95rem;
+  color: var(--slate);
+  line-height: 1.9;
+}
+.timeline-highlight {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(196,92,60,0.12), rgba(196,92,60,0.06));
+  border-left: 3px solid var(--accent);
+  padding: 0.6rem 1rem;
+  margin-top: 0.8rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--accent);
+  border-radius: 0 4px 4px 0;
+}
+
+/* ===== PFAS PROJECT ===== */
+.pfas-section {
+  background: linear-gradient(160deg, #1a1a2e, #1f2f3f);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.pfas-section::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(45,106,106,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+.pfas-section .section-label { color: var(--teal-light); }
+.pfas-section .section-title { color: #fff; }
+.pfas-section .section-title::after { background: linear-gradient(to right, var(--teal-light), var(--accent-light)); }
+
+.pfas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.pfas-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: transform 0.3s, border-color 0.3s;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s, border-color 0.3s;
+}
+.pfas-card.visible { opacity: 1; transform: translateY(0); }
+.pfas-card:hover { border-color: rgba(74,158,158,0.3); transform: translateY(-3px) !important; }
+.pfas-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+.pfas-card h3 {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--teal-light);
+  margin-bottom: 0.6rem;
+}
+.pfas-card p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.8;
+}
+.pfas-kpi {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+  background: rgba(45,106,106,0.1);
+  border: 1px solid rgba(45,106,106,0.2);
+  border-radius: 12px;
+}
+.kpi-item { text-align: center; }
+.kpi-value {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--teal-light);
+  line-height: 1;
+}
+.kpi-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.1em;
+  margin-top: 0.3rem;
+}
+
+/* ===== BOOK ===== */
+.book-section {
+  background: linear-gradient(135deg, #f5f0e8 0%, #ede6da 100%);
+  position: relative;
+}
+.book-inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+.book-cover {
+  width: 200px;
+  height: 280px;
+  background: linear-gradient(135deg, var(--teal), #1a5050);
+  border-radius: 4px 12px 12px 4px;
+  box-shadow: 8px 8px 30px rgba(0,0,0,0.2), 2px 0 0 #0d3535;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s;
+}
+.book-cover:hover { transform: rotate(-2deg) scale(1.03); }
+.book-cover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);
+}
+.book-emoji { font-size: 2.5rem; margin-bottom: 0.8rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+.book-cover-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.5;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.book-cover-year {
+  font-family: var(--display);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
+}
+.book-info h3 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 0.8rem;
+}
+.book-info p {
+  color: var(--slate);
+  font-size: 0.95rem;
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+.book-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--teal);
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+.book-link:hover { background: #245858; transform: translateY(-2px); }
+
+/* ===== SNS ===== */
+.sns-section { background: var(--paper); }
+.sns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.sns-card {
+  background: #fff;
+  border: 1px solid var(--mist);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s, transform 0.5s, box-shadow 0.3s;
+}
+.sns-card.visible { opacity: 1; transform: translateY(0); }
+.sns-card:hover { transform: translateY(-4px) !important; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+.sns-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.sns-icon.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.sns-icon.yt { background: #ff0000; }
+.sns-icon.tt { background: #000; }
+.sns-icon.fb { background: #1877f2; }
+.sns-icon.sp { background: linear-gradient(135deg, var(--teal), var(--teal-light)); }
+.sns-icon.pr { background: linear-gradient(135deg, var(--gold), var(--accent-light)); }
+.sns-name {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.sns-desc {
+  font-size: 0.8rem;
+  color: var(--slate);
+  margin-top: 0.15rem;
+}
+
+/* ===== SKILLS ===== */
+.skills-section {
+  background: linear-gradient(135deg, #f8f5f0, var(--paper));
+}
+.skills-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.skill-tag {
+  background: #fff;
+  border: 1px solid var(--mist);
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink);
+  transition: all 0.3s;
+  cursor: default;
+}
+.skill-tag:hover {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+  transform: translateY(-2px);
+}
+.skill-tag.accent:hover { background: var(--accent); border-color: var(--accent); }
+.skill-tag.gold:hover { background: var(--gold); border-color: var(--gold); }
+
+/* ===== CONTACT / FOOTER ===== */
+.footer-section {
+  background: var(--ink);
+  color: rgba(255,255,255,0.5);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+.footer-section .section-title { color: #fff; }
+.footer-section .section-title::after { margin: 0.8rem auto 0; }
+.footer-conditions {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.condition {
+  text-align: center;
+}
+.condition-value {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+}
+.condition-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.2rem;
+}
+.footer-copy {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .pfas-grid { grid-template-columns: 1fr; }
+  .book-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .hero-stats { gap: 1.5rem; }
+  nav { gap: 1rem; padding: 0.8rem 1rem; }
+  nav a { font-size: 0.7rem; letter-spacing: 0.1em; }
+  .footer-conditions { gap: 1.5rem; }
+  .timeline { padding-left: 2rem; }
+  .timeline-item::before { left: -2rem; }
+  section { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="nav">
+  <a href="#career">経歴</a>
+  <a href="#pfas">PFAS</a>
+  <a href="#book">出版</a>
+  <a href="#sns">SNS</a>
+  <a href="#skills">スキル</a>
+  <a href="#contact">稼働条件</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-content">
+    <p class="hero-label">EC &times; Environment &times; Project Management</p>
+    <h1 class="hero-title">
+      <span>25年</span>のEC知見で<br>ビジネスを加速する
+    </h1>
+    <p class="hero-sub">
+      EC運用・プロジェクトマネジメント・環境事業コンサルティング。<br>
+      多彩な経験を武器に、御社の課題を解決します。
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">25</div>
+        <div class="stat-label">YEARS IN EC/WEB</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5x</div>
+        <div class="stat-label">EC REVENUE GROWTH</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">SNS ACCOUNTS</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">BOOK PUBLISHED</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"></div>
+</section>
+
+<!-- Career Highlights -->
+<section class="career-section" id="career">
+  <div class="container">
+    <p class="section-label">Career Highlights</p>
+    <h2 class="section-title">職務経歴ハイライト</h2>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-period">2015 &mdash; Present</div>
+        <div class="timeline-title">個人事業主 / EC運用代行 &amp; 環境事業コンサルタント</div>
+        <div class="timeline-desc">
+          業務委託としてECサイトの運用代行を担当。SNS 6アカウントのディレクション統括（撮影・編集・集客はプロに委託）。2015年より環境事業コンサルタントとしても活動し、2026年1月からはPFAS分解技術の実証実験プロジェクトを推進中。
+        </div>
+        <div class="timeline-highlight">
+          生成AI（ChatGPT/Gemini/Claude）を業務に常時活用
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2004 &mdash; 2009</div>
+        <div class="timeline-title">株式会社山田養蜂場 / EC事業部 PM・PMO・広告運用</div>
+        <div class="timeline-desc">
+          EC事業の年商を2億円から10億円へ5倍に成長させた中核メンバー。定期購入システムの企画・構築をPMOとして推進し、開発チーム5名＋物流・決済ベンダー3社の横断管理を実施。リスティング広告（Google/Yahoo!）の設計・運用・最適化も担当。
+        </div>
+        <div class="timeline-highlight">
+          年商 2億円 → 10億円（5倍成長）
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2000 &mdash; 2015</div>
+        <div class="timeline-title">Web制作・ディレクション経験</div>
+        <div class="timeline-desc">
+          株式会社サンテクにて技術サポート・通販基礎を習得後、株式会社エージェントゲートおよび株式会社グローバルコネクトにてWeb制作案件の営業・ディレクションを経験。クライアントの課題ヒアリングから設計・制作管理・納品まで一貫対応。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PFAS Project -->
+<section class="pfas-section" id="pfas">
+  <div class="container">
+    <p class="section-label">Featured Project</p>
+    <h2 class="section-title">PFAS分解技術 実証実験プロジェクト</h2>
+    <p style="color:rgba(255,255,255,0.6); margin-top:1rem; font-size:0.95rem;">
+      2026年4月の水道法水質基準強化を見据え、「滝の原理」×「雷の原理」の融合技術による<br>PFAS完全分解・無害化を目指す実証実験プロジェクトを推進中。
+    </p>
+
+    <div class="pfas-grid">
+      <div class="pfas-card">
+        <div class="pfas-card-icon">🏗️</div>
+        <h3>プロジェクト概要</h3>
+        <p>実施主体：es株式会社<br>場所：岡山県某所<br>検出値：3,700ng/L（目標値の74倍）</p>
+      </div>
+      <div class="pfas-card">
+        <div class="pfas-card-icon">⚡</div>
+        <h3>革新的技術</h3>
+        <p>キャビテーションノズルによるナノバブル生成（滝の原理）と、10,000V高電圧印加による活性種生成（雷の原理）の融合。C-F結合を切断し完全無機化。</p>
+      </div>
+      <div class="pfas-card">
+        <div class="pfas-card-icon">📋</div>
+        <h3>担当領域</h3>
+        <p>プロジェクト計画書策定 / 予算配分管理 / スケジュール管理 / 技術パートナー調整 / 自治体への提案準備</p>
+      </div>
+      <div class="pfas-card">
+        <div class="pfas-card-icon">📅</div>
+        <h3>スケジュール</h3>
+        <p>Phase1（2026年1〜4月）：ラボ実験・パラメータ最適化<br>Phase2（2026年5月〜）：フィールドテスト<br>2026年9月：結果報告・事業化判断</p>
+      </div>
+
+      <div class="pfas-kpi">
+        <div class="kpi-item">
+          <div class="kpi-value">≧90%</div>
+          <div class="kpi-label">PFAS除去率</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-value">≧70%</div>
+          <div class="kpi-label">脱フッ素化率</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-value">&lt;2h</div>
+          <div class="kpi-label">処理時間</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-value">1/3</div>
+          <div class="kpi-label">コスト従来比</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Book -->
+<section class="book-section" id="book">
+  <div class="container">
+    <p class="section-label">Publication</p>
+    <h2 class="section-title">出版実績</h2>
+
+    <div class="book-inner">
+      <div class="book-cover">
+        <div class="book-emoji">🌏</div>
+        <div class="book-cover-title">みんなでできる<br>地球のおそうじ</div>
+        <div class="book-cover-year">2022.12</div>
+      </div>
+      <div class="book-info">
+        <h3>みんなでできる地球のおそうじ</h3>
+        <p>
+          環境問題をわかりやすく解説し、個人・企業ができる環境保全活動を紹介した書籍。
+          2022年12月に商業出版。環境事業コンサルタントとしての知見の基盤となっている一冊。
+          PFAS分解技術の実証実験プロジェクトへと繋がる原点でもあり、
+          「環境×ビジネス」の視点から持続可能な社会づくりを提案しています。
+        </p>
+        <a href="https://amzn.asia/d/0bLJu0jn" class="book-link" target="_blank" rel="noopener">
+          📖 Amazonで見る
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SNS -->
+<section class="sns-section" id="sns">
+  <div class="container">
+    <p class="section-label">Social Media</p>
+    <h2 class="section-title">SNS運営アカウント</h2>
+    <p style="color:var(--slate); margin-top:0.5rem; font-size:0.95rem;">全体戦略の策定・KPI管理・コンテンツディレクションを担当。撮影・編集・集客はプロに委託。</p>
+
+    <div class="sns-grid">
+      <a href="https://spique.jp/signup/es/?r=ESis001" class="sns-card" target="_blank" rel="noopener">
+        <div class="sns-icon ig">📸</div>
+        <div>
+          <div class="sns-name">Instagram</div>
+          <div class="sns-desc">ビジュアルコンテンツ配信</div>
+        </div>
+      </a>
+      <a href="https://spique.jp/signup/es/?r=ESyt001" class="sns-card" target="_blank" rel="noopener">
+        <div class="sns-icon yt">▶️</div>
+        <div>
+          <div class="sns-name">YouTube</div>
+          <div class="sns-desc">動画コンテンツ配信</div>
+        </div>
+      </a>
+      <a href="https://spique.jp/signup/es/?r=EStktk001" class="sns-card" target="_blank" rel="noopener">
+        <div class="sns-icon tt">🎵</div>
+        <div>
+          <div class="sns-name">TikTok</div>
+          <div class="sns-desc">ショート動画配信</div>
+        </div>
+      </a>
+      <a href="https://spique.jp/signup/es/?r=ESfb001" class="sns-card" target="_blank" rel="noopener">
+        <div class="sns-icon fb">👥</div>
+        <div>
+          <div class="sns-name">Facebook</div>
+          <div class="sns-desc">コミュニティ・情報発信</div>
+        </div>
+      </a>
+      <a href="https://spique.net/salon/68" class="sns-card" target="_blank" rel="noopener">
+        <div class="sns-icon sp">💎</div>
+        <div>
+          <div class="sns-name">Spique.net サロン</div>
+          <div class="sns-desc">オンラインサロン運営</div>
+        </div>
+      </a>
+      <a href="https://spique.jp/signup/es/?r=ESon001" class="sns-card" target="_blank" rel="noopener">
+        <div class="sns-icon pr">🔒</div>
+        <div>
+          <div class="sns-name">プライベート</div>
+          <div class="sns-desc">限定メンバー向け</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section class="skills-section" id="skills">
+  <div class="container">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">スキル・対応可能業務</h2>
+
+    <div class="skills-flex">
+      <span class="skill-tag">PM / PMO</span>
+      <span class="skill-tag">要件定義</span>
+      <span class="skill-tag">ベンダー管理</span>
+      <span class="skill-tag">スケジュール管理</span>
+      <span class="skill-tag">課題管理</span>
+      <span class="skill-tag accent">楽天市場</span>
+      <span class="skill-tag accent">Yahoo!ショッピング</span>
+      <span class="skill-tag accent">Amazon</span>
+      <span class="skill-tag accent">自社ECサイト運用</span>
+      <span class="skill-tag accent">EC戦略立案</span>
+      <span class="skill-tag gold">リスティング広告</span>
+      <span class="skill-tag gold">SNSディレクション</span>
+      <span class="skill-tag gold">コンテンツ企画</span>
+      <span class="skill-tag">ChatGPT</span>
+      <span class="skill-tag">Gemini</span>
+      <span class="skill-tag">Claude</span>
+      <span class="skill-tag">Genspark</span>
+      <span class="skill-tag">Asana</span>
+      <span class="skill-tag">Notion</span>
+      <span class="skill-tag">Slack</span>
+      <span class="skill-tag">Google Workspace</span>
+      <span class="skill-tag">Obsidian</span>
+      <span class="skill-tag gold">環境事業コンサル</span>
+      <span class="skill-tag gold">書籍出版</span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer / Contact -->
+<section class="footer-section" id="contact">
+  <div class="container">
+    <p class="section-label" style="color:var(--accent-light);">Working Conditions</p>
+    <h2 class="section-title">稼働条件</h2>
+
+    <div class="footer-conditions">
+      <div class="condition">
+        <div class="condition-value">フルリモート</div>
+        <div class="condition-label">勤務形態</div>
+      </div>
+      <div class="condition">
+        <div class="condition-value">週1〜3日</div>
+        <div class="condition-label">稼働日数</div>
+      </div>
+      <div class="condition">
+        <div class="condition-value">平日夜・土日メイン</div>
+        <div class="condition-label">稼働時間帯</div>
+      </div>
+      <div class="condition">
+        <div class="condition-value">業務委託</div>
+        <div class="condition-label">契約形態</div>
+      </div>
+      <div class="condition">
+        <div class="condition-value">平日日中MTG対応可</div>
+        <div class="condition-label">柔軟対応</div>
+      </div>
+    </div>
+
+    <p style="color:rgba(255,255,255,0.4); font-size:0.85rem;">
+      Slack・Zoom・Google Meet・メール等、ツール柔軟に対応いたします。
+    </p>
+
+    <div class="footer-copy">&copy; 2026 Portfolio. All rights reserved.</div>
+  </div>
+</section>
+
+<script>
+// Sticky nav
+const nav = document.getElementById('nav');
+const hero = document.querySelector('.hero');
+const observer = new IntersectionObserver(([e]) => {
+  nav.classList.toggle('visible', !e.isIntersecting);
+}, { threshold: 0.1 });
+observer.observe(hero);
+
+// Scroll animations
+const animItems = document.querySelectorAll('.timeline-item, .pfas-card, .sns-card');
+const scrollObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 100);
+      scrollObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+animItems.forEach(item => scrollObs.observe(item));
+</script>
+
+</body>
+</html>
