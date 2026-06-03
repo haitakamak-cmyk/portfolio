@@ -290,14 +290,14 @@ section { padding: 6rem 2rem; }
   border-radius: 0 4px 4px 0;
 }
 
-/* ===== PFAS PROJECT ===== */
-.pfas-section {
+/* ===== WATER PURIFICATION PROJECT ===== */
+.water-section {
   background: linear-gradient(160deg, #1a1a2e, #1f2f3f);
   color: #fff;
   position: relative;
   overflow: hidden;
 }
-.pfas-section::before {
+.water-section::before {
   content: '';
   position: absolute;
   top: 0; right: 0;
@@ -305,17 +305,17 @@ section { padding: 6rem 2rem; }
   background: radial-gradient(circle, rgba(45,106,106,0.3) 0%, transparent 70%);
   pointer-events: none;
 }
-.pfas-section .section-label { color: var(--teal-light); }
-.pfas-section .section-title { color: #fff; }
-.pfas-section .section-title::after { background: linear-gradient(to right, var(--teal-light), var(--accent-light)); }
+.water-section .section-label { color: var(--teal-light); }
+.water-section .section-title { color: #fff; }
+.water-section .section-title::after { background: linear-gradient(to right, var(--teal-light), var(--accent-light)); }
 
-.pfas-grid {
+.water-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-top: 2.5rem;
 }
-.pfas-card {
+.water-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px;
@@ -325,24 +325,24 @@ section { padding: 6rem 2rem; }
   transform: translateY(20px);
   transition: opacity 0.6s, transform 0.6s, border-color 0.3s;
 }
-.pfas-card.visible { opacity: 1; transform: translateY(0); }
-.pfas-card:hover { border-color: rgba(74,158,158,0.3); transform: translateY(-3px) !important; }
-.pfas-card-icon {
+.water-card.visible { opacity: 1; transform: translateY(0); }
+.water-card:hover { border-color: rgba(74,158,158,0.3); transform: translateY(-3px) !important; }
+.water-card-icon {
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
-.pfas-card h3 {
+.water-card h3 {
   font-family: var(--serif);
   font-size: 1.1rem;
   color: var(--teal-light);
   margin-bottom: 0.6rem;
 }
-.pfas-card p {
+.water-card p {
   font-size: 0.9rem;
   color: rgba(255,255,255,0.65);
   line-height: 1.8;
 }
-.pfas-kpi {
+.water-kpi {
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
@@ -733,7 +733,7 @@ section { padding: 6rem 2rem; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .pfas-grid { grid-template-columns: 1fr; }
+  .water-grid { grid-template-columns: 1fr; }
   .book-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .hero-stats { gap: 1.5rem; }
   nav { gap: 1rem; padding: 0.8rem 1rem; }
@@ -751,7 +751,7 @@ section { padding: 6rem 2rem; }
 <nav id="nav">
   <a href="#value">提供価値</a>
   <a href="#career">経歴</a>
-  <a href="#pfas">PFAS</a>
+  <a href="#water-purification">新規水質浄化技術</a>
   <a href="#book">出版</a>
   <a href="#ai-works">AI作品</a>
   <a href="#skills">スキル</a>
@@ -806,45 +806,45 @@ section { padding: 6rem 2rem; }
       25年の現場経験を背景に、以下のテーマで月額相談・壁打ち・伴走支援を提供します。
     </p>
 
-    <div class="pfas-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem;">
-      <div class="pfas-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
-        <div class="pfas-card-icon">📈</div>
+    <div class="water-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem;">
+      <div class="water-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
+        <div class="water-card-icon">📈</div>
         <h3 style="color: var(--accent);">1. EC/D2C事業の成長設計</h3>
         <p style="color: var(--slate);">
           大手健康食品通販企業にてEC売上 <strong>数億円規模→10億円規模（約5倍成長）</strong> を推進。<br>
           定期購入・LTV最大化・モール多店舗戦略・リスティング広告のROAS改善・CRM施策まで、成長ボトルネックの特定と打開策を提供。
         </p>
       </div>
-      <div class="pfas-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
-        <div class="pfas-card-icon">⚖️</div>
+      <div class="water-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
+        <div class="water-card-icon">⚖️</div>
         <h3 style="color: var(--accent);">2. 健康食品・化粧品の広告表現・導線リスク判断</h3>
         <p style="color: var(--slate);">
           大手健康食品通販企業にて<strong>5年間</strong>、健康食品・化粧品の広告表現チェックを主業務として担当。薬機法・景表法・特商法の制約下で「訴求力」と「リスク」のバランスを判断。LP・広告改善、社内基準策定、ステマ規制対応まで。
         </p>
       </div>
-      <div class="pfas-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
-        <div class="pfas-card-icon">🤝</div>
+      <div class="water-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
+        <div class="water-card-icon">🤝</div>
         <h3 style="color: var(--accent);">3. プロジェクト推進・業務標準化・合意形成（PMO）</h3>
         <p style="color: var(--slate);">
           属人化した業務を「誰でも回せる状態」に再構築する力。経営層と現場の懸念の間に入り、<strong>現実的な落とし所を設計するファシリテーション力</strong>を実務で培いました。複数ベンダー横断管理、業務フロー標準化、内製化支援。
         </p>
       </div>
-      <div class="pfas-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
-        <div class="pfas-card-icon">🛡️</div>
+      <div class="water-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
+        <div class="water-card-icon">🛡️</div>
         <h3 style="color: var(--accent);">4. 生成AI活用・DXセキュリティガバナンス</h3>
         <p style="color: var(--slate);">
           財団法人公式Webアプリを<strong>外注ゼロ・生成AIで自力構築</strong>（Next.js / Supabase / Vercel）。AI開発特有のセキュリティリスクを体系化し、独自の<strong>「Vibe Coding セキュリティ 30条」</strong>を策定・運用中。RLS / ゼロトラスト / サプライチェーン対策まで実装。
         </p>
       </div>
-      <div class="pfas-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
-        <div class="pfas-card-icon">🌱</div>
+      <div class="water-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
+        <div class="water-card-icon">🌱</div>
         <h3 style="color: var(--accent);">5. 環境事業・非営利組織運営・クラウドファンディング</h3>
         <p style="color: var(--slate);">
           個人事業主環境コンサルタントとして、水質浄化・森林保全の環境事業を10年推進。一般社団法人の事務局長を8年間務め、ボランティア活動の企画・運営・組織マネジメントを継続。その実績を基に、一般財団法人を新たに設立し理事兼事務局長に就任。クラウドファンディング3件成功（累計支援者634名超）。
         </p>
       </div>
-      <div class="pfas-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
-        <div class="pfas-card-icon">🎯</div>
+      <div class="water-card visible" style="background: #fff; border: 1px solid var(--mist); color: var(--ink);">
+        <div class="water-card-icon">🎯</div>
         <h3 style="color: var(--accent);">6. クラウドファンディング企画・リターン設計</h3>
         <p style="color: var(--slate);">
           累計 <strong>3件成功／支援者634名超／調達額約1,800万円</strong>。「100万円：環境調査レポート」など、無形の<strong>体験・称号・社会的価値</strong>を高単価でマネタイズするリターン設計のノウハウを提供します。
@@ -882,7 +882,7 @@ section { padding: 6rem 2rem; }
         <div class="timeline-period">2015 &mdash; Present</div>
         <div class="timeline-title">個人事業主 / PMO・環境コンサル</div>
         <div class="timeline-desc">
-          EC運用代行、SNSディレクション、PFAS実証実験のPMOを推進。複数ステークホルダーを束ねる実務伴走を継続。
+          EC運用代行、SNSディレクション、新規水質浄化技術実証実験のPMOを推進。複数ステークホルダーを束ねる実務伴走を継続。
         </div>
       </div>
 
@@ -921,45 +921,45 @@ section { padding: 6rem 2rem; }
   </div>
 </section>
 
-<!-- PFAS Project -->
-<section class="pfas-section" id="pfas">
+<!-- 新規水質浄化技術 Project -->
+<section class="water-section" id="water-purification">
   <div class="container">
     <p class="section-label">Featured Project</p>
-    <h2 class="section-title">PFAS分解技術 実証実験プロジェクト</h2>
+    <h2 class="section-title">新規水質浄化技術 実証実験プロジェクト</h2>
     <p style="color:rgba(255,255,255,0.6); margin-top:1rem; font-size:0.95rem;">
       水道法水質基準強化を見据え、特殊融合技術による<br>水質浄化を目指す実証実験プロジェクトを推進中。
     </p>
 
-    <div class="pfas-grid">
-      <div class="pfas-card">
-        <div class="pfas-card-icon">🏗️</div>
+    <div class="water-grid">
+      <div class="water-card">
+        <div class="water-card-icon">🏗️</div>
         <h3>プロジェクト概要</h3>
         <p>実施主体：岡山県津山市企業<br>技術提供：東京のパートナー企業<br>場所：岡山県<br></p>
       </div>
-      <div class="pfas-card">
-        <div class="pfas-card-icon">⚡</div>
+      <div class="water-card">
+        <div class="water-card-icon">⚡</div>
         <h3>革新的技術</h3>
         <p>キャビテーションノズルによるナノバブル生成と、活性種生成の融合。</p>
       </div>
-      <div class="pfas-card">
-        <div class="pfas-card-icon">📋</div>
+      <div class="water-card">
+        <div class="water-card-icon">📋</div>
         <h3>担当領域</h3>
         <p>プロジェクト計画書策定 / 予算配分管理 / スケジュール管理 / 技術パートナー調整 / 自治体への提案準備</p>
       </div>
-      <div class="pfas-card">
-        <div class="pfas-card-icon">📅</div>
+      <div class="water-card">
+        <div class="water-card-icon">📅</div>
         <h3>スケジュール</h3>
         <p>Phase1（2026年1〜4月）：ラボ実験・パラメータ最適化<br>Phase2（2026年5月〜）：フィールドテスト<br>2026年9月：結果報告・事業化判断</p>
       </div>
 
-      <div class="pfas-kpi">
+      <div class="water-kpi">
         <div class="kpi-item">
           <div class="kpi-value">≧90%</div>
           <div class="kpi-label">除去率</div>
         </div>
         <div class="kpi-item">
           <div class="kpi-value">≧70%</div>
-          <div class="kpi-label">脱フッ素化率</div>
+          <div class="kpi-label">分解・無害化指標</div>
         </div>
         <div class="kpi-item">
           <div class="kpi-value">&lt;2h</div>
@@ -1277,7 +1277,7 @@ const observer = new IntersectionObserver(([e]) => {
 observer.observe(hero);
 
 // Scroll animations
-const animItems = document.querySelectorAll('.timeline-item, .pfas-card, .sns-card, .ai-work-card');
+const animItems = document.querySelectorAll('.timeline-item, .water-card, .sns-card, .ai-work-card');
 const scrollObs = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) {
